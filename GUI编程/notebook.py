@@ -1,5 +1,4 @@
-"""开发记事本软件的菜单
-"""
+"""开发记事本软件的菜单"""
 from tkinter import *
 from tkinter.filedialog import *
 from tkinter.colorchooser import *
@@ -87,6 +86,6 @@ class Application(Frame):
 if __name__ == '__main__':
     root = Tk()
     root.geometry("450x300+200+300")
-    root.title("百战程序员的简易记事本")
+    root.title("张嘉灏的简易记事本")
     app = Application(master=root)
     root.mainloop()
