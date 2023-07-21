@@ -45,7 +45,7 @@ class Application(Frame):
         root.bind("<Control-q>",lambda event:self.exit())
 
         #文本编辑区
-        self.textpad = Text(root, width=50, height=30)
+        self.textpad = Text(root)
         self.textpad.pack()
 
         # 创建上下菜单
