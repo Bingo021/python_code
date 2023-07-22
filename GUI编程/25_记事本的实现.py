@@ -3,7 +3,6 @@ from tkinter import *
 from tkinter.colorchooser import *
 from tkinter.filedialog import *
 
-
 class Application(Frame):
 
     def __init__(self, master=None):
