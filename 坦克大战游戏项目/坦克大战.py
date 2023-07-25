@@ -107,8 +107,11 @@ class MainGame():
             MainGame.wallList.append(wall)
 
     def createMytank(self):
-
         MainGame.my_tank = MyTank(350, 300)
+        #创建Music类对象
+        music = Music('img/start.wav')
+        #播放音乐
+        music.play()
 
     #循环展示爆炸效果
     def blitExplode(self):
@@ -234,6 +237,9 @@ class MainGame():
                             # 创建我方坦克发射子弹
                             myBullet = Bullet(MainGame.my_tank)
                             MainGame.myBulletList.append(myBullet)
+                            #我方坦克发射子弹添加音效
+                            music =Music('img/hit.wav')
+                            music.play()
 
             # 松开方向键停止，修改坦克的开关
             if event.type == pygame.KEYUP:
@@ -542,12 +548,16 @@ class Explode():
 
 # 音效类
 class Music():
-    def __init__(self):
-        pass
+    def __init__(self,filename):
+        self.filename = filename
+        #初始化音乐混合器
+        pygame.mixer.init()
+        #加载音乐
+        pygame.mixer.music.load(self.filename)
 
     # 播放音乐
     def play(self):
-        pass
+        pygame.mixer.music.play()
 
 
 if __name__ == '__main__':
