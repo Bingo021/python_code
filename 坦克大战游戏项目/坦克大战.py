@@ -84,6 +84,8 @@ class MainGame():
                     MainGame.my_tank.move()
                     #检测我方坦克是否与墙壁发生碰撞
                     MainGame.my_tank.hitWall()
+                    #检测我方坦克是否与敌方坦克发生碰撞
+                    MainGame.my_tank.myTank_hit_enemyTank()
             pygame.display.update()
 
     #遍历墙壁列表展示墙壁
@@ -106,7 +108,7 @@ class MainGame():
 
     def createMytank(self):
 
-        MainGame.my_tank = Tank(350, 300)
+        MainGame.my_tank = MyTank(350, 300)
 
     #循环展示爆炸效果
     def blitExplode(self):
@@ -128,6 +130,9 @@ class MainGame():
                 enemyTank.randMove()
                 #调用检测是否与墙壁发生碰撞
                 enemyTank.hitWall()
+                if MainGame.my_tank and MainGame.my_tank.live:
+                    #检测敌方坦克是否与我方坦克碰撞
+                    enemyTank.enemyTank_hit_myTank()
                 # 发射子弹
                 enemyBullet = enemyTank.shot()
                 if enemyBullet:
@@ -321,9 +326,14 @@ class Tank(BaseItem):
 
 # 我方坦克
 class MyTank(Tank):
-    def __init__(self):
-        pass
+    def __init__(self,left,top):
+        super(MyTank,self).__init__(left,top)
 
+    def myTank_hit_enemyTank(self):
+        #循环遍历敌方坦克列表
+        for enemyTank in MainGame.enemyTankList:
+            if pygame.sprite.collide_rect(self,enemyTank):
+                self.stay()
 
 # 敌方坦克
 class EnemyTank(Tank):
@@ -352,6 +362,11 @@ class EnemyTank(Tank):
         self.flag = True
         # 新增加一个步数变量
         self.step = 20
+
+    #敌方坦克与我方坦克是否发生碰撞
+    def enemyTank_hit_myTank(self):
+        if pygame.sprite.collide_rect(self,MainGame.my_tank):
+            self.stay()
 
     # 随机生成敌方坦克的方向
     def randDirection(self):
