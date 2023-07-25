@@ -6,7 +6,7 @@
 import pygame, time, random
 from pygame.sprite import Sprite
 
-SCREEN_WIDTH = 780
+SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 500
 BG_COLOR = pygame.Color(0, 0, 0)
 TEXT_COLOR = pygame.Color(255, 0, 0)
@@ -82,6 +82,8 @@ class MainGame():
             if MainGame.my_tank and MainGame.my_tank.live:
                 if not MainGame.my_tank.stop:
                     MainGame.my_tank.move()
+                    #检测我方坦克是否与墙壁发生碰撞
+                    MainGame.my_tank.hitWall()
             pygame.display.update()
 
     #遍历墙壁列表展示墙壁
@@ -124,6 +126,8 @@ class MainGame():
             if enemyTank.live:
                 enemyTank.displayTank()
                 enemyTank.randMove()
+                #调用检测是否与墙壁发生碰撞
+                enemyTank.hitWall()
                 # 发射子弹
                 enemyBullet = enemyTank.shot()
                 if enemyBullet:
@@ -269,13 +273,30 @@ class Tank(BaseItem):
         self.stop = True
         # 坦克是否活着
         self.live = True
+        #新增属性原来坐标
+        self.oldLeft=self.rect.left
+        self.oldTop=self.rect.top
 
     # 射击
     def shot(self):
         return Bullet(self)
 
+    def stay(self):
+        self.rect.left = self.oldLeft
+        self.rect.top = self.oldTop
+
+    #检测坦克是否与墙壁发生碰撞
+    def hitWall(self):
+        for wall in MainGame.wallList:
+            if pygame.sprite.collide_rect(self,wall):
+                #将坐标设置为移动之前的坐标
+                self.stay()
+
     # 移动
     def move(self):
+        #移动后记录原始的坐标
+        self.oldLeft = self.rect.left
+        self.oldTop = self.rect.top
         # 判断坦克的方向进行移动
         if self.direction == 'L':
             if self.rect.left > 0:
