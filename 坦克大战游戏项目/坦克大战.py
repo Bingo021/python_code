@@ -6,7 +6,7 @@
 import pygame, time, random
 from pygame.sprite import Sprite
 
-SCREEN_WIDTH = 700
+SCREEN_WIDTH = 780
 SCREEN_HEIGHT = 500
 BG_COLOR = pygame.Color(0, 0, 0)
 TEXT_COLOR = pygame.Color(255, 0, 0)
@@ -32,7 +32,8 @@ class MainGame():
     enemyBulletList = []
     #存储爆炸效果的列表
     explodeList = []
-
+    #存储墙壁的列表
+    wallList = []
     def __init__(self):
         pass
 
@@ -44,9 +45,11 @@ class MainGame():
         # 设置窗口的大小及显示
         MainGame.window = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
         # 初始化我方坦克
-        MainGame.my_tank = Tank(350, 250)
+        self.createMytank()
         # 初始化敌方坦克，并将敌方坦克添加到列表中
         self.createEnemyTank()
+        #初始化墙壁
+        self.createWall()
         # 设置窗口的标题
         pygame.display.set_caption("坦克大战1.0")
         while True:
@@ -73,11 +76,35 @@ class MainGame():
             self.blitEnemyBullet()
             #循环遍历爆炸列表，展示爆炸效果
             self.blitExplode()
+            #循环遍历墙壁列表，来展示墙壁
+            self.blitWall()
             # 如果坦克的开关开启，才可以移动
             if MainGame.my_tank and MainGame.my_tank.live:
                 if not MainGame.my_tank.stop:
                     MainGame.my_tank.move()
             pygame.display.update()
+
+    #遍历墙壁列表展示墙壁
+    def blitWall(self):
+        for wall in MainGame.wallList:
+            #判断墙壁是否存活
+            if wall.live:
+                #调用墙壁的显示方法
+                wall.displayWall()
+            else:
+                #从墙壁列表移除
+                MainGame.wallList.remove(wall)
+
+    #初始化墙壁
+    def createWall(self):
+        for i in range(6):
+            wall = Wall(i*130,220)
+            #将墙壁添加到列表中
+            MainGame.wallList.append(wall)
+
+    def createMytank(self):
+
+        MainGame.my_tank = Tank(350, 300)
 
     #循环展示爆炸效果
     def blitExplode(self):
@@ -115,6 +142,8 @@ class MainGame():
                 myBullet.move()
                 #调用检测我方子弹是否与敌方坦克发生碰撞
                 myBullet.myBullet_hit_enemyTank()
+                # 检测我方子弹是否与墙壁碰撞
+                myBullet.hitWall()
             # 否则删除
             else:
                 MainGame.myBulletList.remove(myBullet)
@@ -128,6 +157,8 @@ class MainGame():
                 enemyBullet.move()
                 #调用敌方子弹与我方坦克碰撞的方法
                 enemyBullet.enemyBullet_hit_myTank()
+                #检测敌方子弹是否与墙壁碰撞
+                enemyBullet.hitWall()
             # 否则删除
             else:
                 MainGame.enemyBulletList.remove(enemyBullet)
@@ -158,6 +189,12 @@ class MainGame():
             if event.type == pygame.QUIT:
                 self.endGame()
             if event.type == pygame.KEYDOWN:
+                #当坦克不存走或者死亡
+                if not MainGame.my_tank:
+                    #判断按下的是Esc键，让坦克重生
+                    if event.key == pygame.K_ESCAPE:
+                        #让我方坦克重生及带调用创建坦克的方法
+                        self.createMytank()
                 if MainGame.my_tank and MainGame.my_tank.live:
                     if event.key == pygame.K_LEFT:
                         # 切换方向
@@ -377,6 +414,18 @@ class Bullet(BaseItem):
             else:
                 self.live = False
 
+    #子弹是否碰撞到墙壁
+    def hitWall(self):
+        #循环遍历墙壁列表
+        for wall in MainGame.wallList:
+            if pygame.sprite.collide_rect(self,wall):
+                #修改子弹的生存状态，让子弹消失
+                self.live=False
+                wall.hp-=1
+                if wall.hp<=0:
+                    #修改墙壁的生存状态
+                    wall.live=False
+
     # 显示子弹的方法
     def displayBullet(self):
         # 将图片surface加载到窗口
@@ -408,12 +457,21 @@ class Bullet(BaseItem):
 
 # 墙壁类
 class Wall():
-    def __init__(self):
-        pass
-
+    def __init__(self,left,top):
+        #加载墙壁图片
+        self.image = pygame.image.load('img/steels.gif')
+        #获取墙壁的区域
+        self.rect = self.image.get_rect()
+        #设置位置
+        self.rect.left=left
+        self.rect.top=top
+        #是否存活
+        self.live=True
+        #设置生命值
+        self.hp=3
     # 显示墙壁的方法
     def displayWall(self):
-        pass
+        MainGame.window.blit(self.image,self.rect)
     # 属性：是否可以通过
 
 
