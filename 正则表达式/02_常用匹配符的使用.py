@@ -31,4 +31,30 @@ str = '\t'
 str = 'a'
 str = '_'
 str = '9'
+# print(re.match(pattern,str))
+
+#\w 匹配字母，数字，下划线
+# pattern = '\w'
+#\W 匹配非字母，数字，下划线
+pattern = '\W'
+str = '0'
+str = 'a'
+str = '_'
+str = '\n'
+# print(re.match(pattern,str))
+
+#[]匹配列表中的字符
+pattern = '[13579]'
+str = '1'
+str = '2'
+str = '3'
+str = '4'
+str = 'a'
+str = '_'
+# print(re.match(pattern,str))
+
+#匹配手机号码
+# pattern = '\d\d\d\d\d\d\d\d\d\d\d'
+pattern = '1[35789]\d\d\d\d\d\d\d\d\d'
+str = '13456788756'
 print(re.match(pattern,str))
