@@ -20,3 +20,10 @@ pattern = '[xyz]'
 pattern1 = 'x|y|z'
 print(re.match(pattern,'y'))
 print(re.match(pattern1,'y'))
+#区别
+#匹配第一个字母是a或b 第二个字母可以是c或者d 结果ac，ad，bc，bd
+print(re.match('[ab][cd]','acge'))
+
+print(re.match('ab[cd]','abc'))
+
+print(re.match('ab|cd','ac'))
