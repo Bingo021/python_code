@@ -2,8 +2,10 @@
 name = '张三'
 age = 20
 print('姓名；%s，年龄：%d'%(name,age))
+
 #使用format
 print('姓名：{}，年龄：{}'.format(name,age))
+
 #新版本
 print(f'姓名：{name}，年龄：{age}')
 names = ['java','python','前端']
