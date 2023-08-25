@@ -7,3 +7,7 @@ dick2 = {'b':2}
 #新版本
 result = dick1 | dick2
 print(result)
+
+#更新字典
+dick1 |= dick2
+print(dick1)
