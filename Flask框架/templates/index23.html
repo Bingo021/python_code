@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>default过滤器</title>
+</head>
+<body>
+  <h1>default过滤器</h1>
+  过滤前的昵称数据是：{{nick_name}}<br>
+  过滤后的昵称数据是：{{nick_name | default('用户1',boolean=True)}}<br>
+  过滤后的昵称数据是：{{nick_name or '用户2'}}
+</body>
+</html>

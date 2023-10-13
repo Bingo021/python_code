@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>转义字符串过滤器</title>
+</head>
+<body>
+    <h1>转义字符串过滤器</h1>
+    <!-- 模板中默认做了转义字符的效果 -->
+    <!-- 转义前的数据是：{{info |safe}}-->
+    {% autoescape false %}   <!-- false代表不再转义特殊字符 / true转义特殊字符-->
+        {{info |escape}}  <!-- 转义：将特殊字符转换成&lt;类似的数据 -->
+    {% endautoescape %}
+</body>
+</html>
