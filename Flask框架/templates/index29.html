@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页</title>
+</head>
+<body>
+    <sapn>中国大陆</sapn>&nbsp;&nbsp;&nbsp;
+    {% if not user %}
+        <a href="{{url_for('login',user='吕布')}}">亲，请登录</a>&nbsp;&nbsp;&nbsp;
+        <span>免费注册</span>&nbsp;&nbsp;&nbsp;
+    {% else %}
+        <span>{{user}}</span>
+    {% endif %}
+    <span>手机逛淘宝</span>&nbsp;&nbsp;&nbsp;
+</body>
+</html>

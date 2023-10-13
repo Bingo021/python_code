@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>url_for函数的使用</title>
+</head>
+<body>
+    <h1>url_for函数</h1>
+    <hr>
+    {{url_for('index')}}
+    <br>
+    {{url_for('home')}}
+    <br>
+    {{url_for('home1',id=1101)}}
+    <br>
+    {{url_for('home',id=1101)}}
+    <br>
+    {{url_for('home1',id=1101,addr='bj')}}
+    <br>
+    <a href="/home/">访问home的内容</a>
+    <br>
+    <a href="{{url_for('home')}}">访问home的内容</a>
+</body>
+</html>

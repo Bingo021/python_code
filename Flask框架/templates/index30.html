@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>流程控制-循环结构</title>
+</head>
+<body>
+    <h1>流程控制-循环结构</h1>
+    {% for item in items %}
+        {{item}}<br>
+    {% endfor %}
+    <hr>
+    {{person}}<br>
+    {{person.name}}<br>
+    {% for p in person.keys() %}
+        {{p}}<br>
+    {% endfor %}<br>
+    {% for p in person.values() %}
+        {{p}}<br>
+    {% endfor %}<br>
+    {% for p in person.items() %}
+        {{p}}<br>
+    {% endfor %}<br>
+    {% for item in items %}
+        {{item}} == {{ loop.index }} == {{ loop.index0 }} == {{ loop.last }} == {{ loop.first }} == {{ loop.length }}<br>
+    {% endfor %}<br>
+    {% for item in items|reverse %}
+        {{item}}<br>
+    {% endfor %}
+</body>
+</html>

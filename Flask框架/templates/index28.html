@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>流程控制—选择结构</title>
+</head>
+<body>
+    <h1>流程控制—选择结构</h1>
+
+    <h3>单分支</h3>
+    {% if uname == 'sxt' %}
+        <p>尚学堂</p>
+    {% endif %}
+
+    <hr>
+    <h3>双分支</h3>
+    {% if uname == 'sxt' %}
+        <p>尚学堂</p>
+    {% else %}
+        <p>百战程序员</p>
+    {% endif %}
+
+    <hr>
+    <h3>多分支</h3>
+    {% if uname == 'sxt' %}
+        <p>尚学堂</p>
+    {% elif uname == 'bz'%}
+        <p>学python找百战程序员</p>
+    {% else %}
+        <p>百战程序员</p>
+    {% endif %}
+</body>
+</html>
