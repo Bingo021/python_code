@@ -4,7 +4,47 @@
     <meta charset="UTF-8">
     <title>宏的引入</title>
 </head>
+<!--from filr import func_name-->
+<!--import file-->
+{% import 'macros/common.html' as mc %}
+{% from 'macros/common.html' import inp %}
 <body>
     <h1>宏的引入</h1>
+        <table>
+        <tr>
+            <td>用户名：</td><td><input type="text" value="{{nick}}"></td>
+        </tr>
+        <tr>
+            <td>密码：</td><td><input type="password"></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="登录"> </td>
+        </tr>
+    </table>
+
+    <hr>
+    <table>
+        <tr>
+            <td>用户名：</td><td>{{mc.inp(name='name',value=nick)}}</td>
+        </tr>
+        <tr>
+            <td>密码：</td><td>{{mc.inp('password','pwd')}}</td>
+        </tr>
+        <tr>
+            <td>{{mc.inp('submit',value='登录')}}</td>
+        </tr>
+    </table>
+    <hr>
+    <table>
+        <tr>
+            <td>用户名：</td><td>{{inp(name='name',value=nick)}}</td>
+        </tr>
+        <tr>
+            <td>密码：</td><td>{{inp('password','pwd')}}</td>
+        </tr>
+        <tr>
+            <td>{{inp('submit',value='登录')}}</td>
+        </tr>
+    </table>
 </body>
 </html>
