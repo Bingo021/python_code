@@ -5,7 +5,7 @@ app = Flask(__name__,static_folder='static2')
 
 @app.route('/')
 def index():
-    return render_template('index37.html')
+    return render_template('base.html')
 
 
 if __name__ == '__main__':
